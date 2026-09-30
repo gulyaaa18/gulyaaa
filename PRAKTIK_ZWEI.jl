@@ -45,7 +45,7 @@ function newthon(r::Function, x; epsilon=1e-8, num_max=10)
     return nothing
 end
 
-# --- СПОСОБ 1: Аналитическое вычисление производной ---
+# СПОСОБ 1: Аналитическое вычисление производной ---
 
 # Функция для уравнения cos(x) = x -> cos(x) - x = 0
 function equation_analytic(x)
@@ -57,7 +57,7 @@ function equation_analytic(x)
     return (f_val, f_der)
 end
 
-# --- СПОСОБ 2: Автоматическое дифференцирование с помощью пакета ForwardDiff ---
+# СПОСОБ 2: Автоматическое дифференцирование с помощью пакета ForwardDiff ---
 
 function equation_auto_diff(x)
     """
@@ -73,7 +73,7 @@ function equation_auto_diff(x)
     return (f_val, f_der)
 end
 
-# --- СПОСОБ 3: Аппроксимация производной конечными разностями ---
+#  СПОСОБ 3: Аппроксимация производной конечными разностями ---
 
 function equation_finite_diff(x; h=1e-6)
     """
@@ -85,7 +85,7 @@ function equation_finite_diff(x; h=1e-6)
     return (f_val, f_der)
 end
 
-# --- ДЕМОНСТРАЦИЯ РАБОТЫ ---
+# ДЕМОНСТРАЦИЯ РАБОТЫ ---
 
 println("="^50)
 println("РЕШЕНИЕ УРАВНЕНИЯ cos(x) = x МЕТОДОМ НЬЮТОНА")
@@ -94,25 +94,25 @@ println("="^50)
 # Начальное приближение
 initial_guess = 0.5
 
-# --- Способ 1: Аналитическая производная ---
+#Способ 1: Аналитическая производная ---
 println("\n1. АНАЛИТИЧЕСКОЕ ВЫЧИСЛЕНИЕ ПРОИЗВОДНОЙ:")
 root_analytic = newthon(equation_analytic, initial_guess)
 println("Найденный корень: ", root_analytic)
 println("Проверка: cos($root_analytic) - $root_analytic = ", cos(root_analytic) - root_analytic)
 
-# --- Способ 2: Автоматическое дифференцирование ---
+# Способ 2: Автоматическое дифференцирование ---
 println("\n2. АВТОМАТИЧЕСКОЕ ДИФФЕРЕНЦИРОВАНИЕ (ForwardDiff):")
 root_auto = newthon(equation_auto_diff, initial_guess)
 println("Найденный корень: ", root_auto)
 println("Проверка: cos($root_auto) - $root_auto = ", cos(root_auto) - root_auto)
 
-# --- Способ 3: Конечные разности ---
+# Способ 3: Конечные разности ---
 println("\n3. АППРОКСИМАЦИЯ КОНЕЧНЫМИ РАЗНОСТЯМИ:")
 root_finite = newthon(equation_finite_diff, initial_guess)
 println("Найденный корень: ", root_finite)
 println("Проверка: cos($root_finite) - $root_finite = ", cos(root_finite) - root_finite)
 
-# --- Сравнение результатов ---
+# Сравнение результатов ---
 println("\n" * "="^50)
 println("СРАВНЕНИЕ РЕЗУЛЬТАТОВ:")
 println("Аналитический метод: ", root_analytic)
